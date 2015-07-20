@@ -17,22 +17,22 @@
    ms.author="pehteh"/>
 
 # Overview
-Azure SQL Database V12 brings near-complete engine compatibility with SQL Server 2014. As such, it dramatically simplifies the task of migrating most databases from SQL Server to Azure SQL Database. Migration for many databases is a straightforward movement operation requiring few if any changes to the schema and little or no re-engineering of applications. And where databases need to be changed the scope of these changes is more confined. 
+Azure SQL Database V12 brings near-complete enginer feature compatibility with SQL Server 2014. As such, it dramatically simplifies the task of migrating most databases from SQL Server to Azure SQL Database. Migration for many databases is a straightforward movement operation requiring few, if any, changes to the schema and little or no re-engineering of the application.
 
-By design, server-scoped features of SQL Server are not supported by SQL Database, so databases and applications that rely on these will continue to need some re-engineering before they can be migrated. While SQL Database V12 improves compatibility with SQL Server, migration still needs to be planned and executed carefully, particularly for larger more complex databases. 
+By design, server-scoped features of SQL Server are not supported by SQL Database (e.g. SQL Agent), so databases and applications that rely on these features will continue to need some re-engineering before they can be fully migrated. While SQL Database V12 improves compatibility with SQL Server, migration still needs to be planned and executed carefully, particularly for larger more complex databases. 
 
 ## At a Glance
-There are different approaches for migrating a SQL Server database to Azure, each using one or more tools. Some approach are quick and easy, while others take longer to prepare. Please be aware that migrating a large complex database may take several many hours! 
+There are different approaches and tools for migrating a SQL Server database to Azure. Some approach are quick and easy, while others take longer to prepare ane execute. Please be aware that migrating a large complex database may take several many hours.
 
 ### Option #1
 ***Migrate a compatible database using SQL Server Management Studio (SSMS)***
 
-The database is deployed from to Azure SQL Database using SSMS. The database can be deployed directly or exported to a BACPAC which is then imported to create a new Azure SQL database.  Use when the source database is fully compatible with Azure SQL Database.
+The database is deployed from to Azure SQL Database using SSMS. The database can be deployed directly or exported to a BACPAC which is then imported to create a new Azure SQL database.  This option should be used when the source database is fully compatible with Azure SQL Database.
 
 ### Option #2
 ***Migrate a near-compatible database using SQL Azure Migration Wizard (SAMW)***
 
-The database is processed using the SQL Azure Migration Wizard to generate a migration script containing schema or schema plus data in BCP format. Use when the database schema requires upgrade and the changes can be handled by the wizard. 
+The database is processed using the SQL Azure Migration Wizard to generate a migration script containing schema or schema plus data in BCP format. This option should be used when the database schema requires upgrade and the changes can be handled by the wizard. 
 
 ### Option #3
 ***Update database schema off-line using Visual Studio (VS) and SAMW and deploy with SSMS***
@@ -40,9 +40,9 @@ The database is processed using the SQL Azure Migration Wizard to generate a mig
 The source database is imported into a Visual Studio database project for processing offline. SQL Azure Migration Wizard is then run across all the scripts in the project to apply a series of transformations and corrections. The project is targeted at SQL Database V12 and built and any remaining errors are reported. These errors are then resolved manually using the SQL Server tooling in Visual Studio. Once the project builds successfully it is published back to a copy of the source database. This updated database is then deployed to Azure SQL Database using option #1. If schema-only migration is required, the schema can be publish directly from Visual Studio directly to Azure SQL Database. Use when the database schema requires more changes than can be handled by SAMW alone. 
 
 ## Deciding options to use
-- If you anticipate that a database can be migrated without change you should use option #1 which is quick and easy.  If you are uncertain, start by exporting a schema-only BACPAC from the database, as described in option #1. If the export succeeds with no errors then you can use option #1 to migrate the database with its data.  
-- If you encounter errors during the export of option#1 use the SQL Azure Migration Wizard (SAMW) to process the database in schema-only mode as described in option #2.  If SAMW reports no errors then option #2 can be used. 
-- If SAMW reports that the schema needs additional work then, unless it needs only simple fixes, it is best to use option #3 and correct the database schema offline in Visual Studio using a combination of SAMW and manually applied schema changes. A copy of the source database is then updated in situ and then migrated to Azure using option #1.
+- If you anticipate that a database can be migrated without change you should use option #1 as it is quick and easy.  If you are uncertain, start by exporting a schema-only BACPAC from the database, as described in option #1. If the export succeeds with no errors then you can use option #1 to migrate the database with its data.  
+- If you encounter errors during the export of option #1 use the SQL Azure Migration Wizard (SAMW) to process the database in schema-only mode as described in option #2.  If SAMW reports no errors then option #2 can be used. 
+- If SAMW reports that the schema needs additional work then, unless it needs only simple fixes, it is best to use option #3 and correct the database schema offline in Visual Studio using a combination of SAMW and manually applied schema changes. A copy of the source database is updated and then migrated to Azure using option #1.
 
 ## Migration tools
 Tools used include SQL Server Management Studio (SSMS), the SQL Server tooling in Visual Studio (VS, SSDT), and the SQL Azure Migration Wizard (SAMW), as well the Azure portal. 
@@ -50,7 +50,7 @@ Tools used include SQL Server Management Studio (SSMS), the SQL Server tooling i
 > Be sure to install the latest versions of the client tools as earlier versions are not compatible with the SQL Database v12.
 
 ### SQL Server Management Studio (SSMS)
-SSMS can be used to deploy a compatible database directly to Azure SQL Database or to export a logical backup of the database as a BACPAC, which can then be imported, still using SSMS, to create a new Azure SQL Database.  
+SSMS can be used to deploy a compatible database directly to Azure SQL Database or to export a logical backup of the database as a BACPAC, which can then be imported, using SSMS, to create a new Azure SQL Database.  
 
 You must use the latest version of SSMS (CU6 in SQL Server 2013 and up) or by download the [latest version](http://msdn.microsoft.com/en-us/evalcenter/dn434042.aspx) of the tool.  
 
